@@ -30,7 +30,7 @@ loginButton.addEventListener("click", function(){
     
     const emailInfo = document.getElementById("email").value;
     const passwordInfo = document.getElementById("password").value;
-    if(emailInfo == "limadesousa@gmalwashington.com" && passwordInfo == "dDz4Zs569fNH"){
+    if(emailInfo == "ivanirmiranda197@gmail.com" && passwordInfo == "dDz4Zs569fNH"){
         // Utilisez setTimeout pour masquer le chargement après 2 secondes (2000 millisecondes)
         setTimeout(function() {
             transactionArea.style.display = "block";
